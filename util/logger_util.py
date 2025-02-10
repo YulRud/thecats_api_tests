@@ -12,7 +12,7 @@ class Logger():
          file_handler = logging.FileHandler('test.log')
          file_handler.setLevel(logging.INFO)
 
-         formatter = logging.Formatter('[%(asctime)s] - [%(levelname)s] - %(name)s -  %(message)s')
+         formatter = logging.Formatter('[%(asctime)s] - [%(levelname)s] - %(name)s - %(lineno)d-  %(message)s')
          console_handler.setFormatter(formatter)
          file_handler.setFormatter(formatter)
 
