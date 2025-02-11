@@ -22,3 +22,13 @@ class BaseClient:
         
         BaseClient.logger.info(f"Received response with status code: {response.status_code} and body: {response.text}")
         return response
+
+    def make_get_by_id_request(self, url, id, parameters=None):
+        BaseClient.logger.info(f"Making request to: {url} with params: {parameters}")
+
+        response = requests.get(url + f'/{id}',
+            headers=self.headers, 
+            params=parameters)           
+        
+        BaseClient.logger.info(f"Received response with status code: {response.status_code} and body: {response.text}")
+        return response
