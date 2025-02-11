@@ -1,8 +1,7 @@
 import json
 from client.cat_favorites_client import CatFavoritesClient
-import pytest
 from assertpy import assert_that
-from fixture.authorization_fixture import api_key
+from fixture.authorization_fixture import api_key, test_logger as logger
 
 client = CatFavoritesClient()
 
@@ -10,7 +9,8 @@ client = CatFavoritesClient()
 # TODO: Implement fixture for getting/creation of a valid image_id
 
 
-def test_retrieve_favorites(api_key):    
+def test_retrieve_favorites_2(api_key, logger):    
+    logger.info("test_retrieve_favorites favorites has started:")
     response = client.get_favorites(api_key)
     assert response.status_code == 200
     assert response.json() != []
