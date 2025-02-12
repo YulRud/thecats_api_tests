@@ -8,22 +8,24 @@ class CatImagesClient(BaseClient):
         super().__init__(__name__)
         self.base_url = BASE_URI
 
-    def get_images(self, api_key, size= None, mime_types= None, order= None, limit= None, page= None):
+    def get_images(self, api_key, limit= None, page= None, has_breeds= None, breed_ids= None, order= None, parameter_value = None):
         url = f'{self.base_url}/v1/images/search'
         
         params ={'api_key':api_key,
-                 'format':'json'}
-        if size is not None:
-            params['size'] = size
-        if mime_types is not None:
-            params['mime_types'] = mime_types
+                 'format':'json',
+                 'mime_types':'jpg'}
         if order is not None:
             params['order'] = order
         if limit is not None:
             params['limit'] = limit
         if page is not None:
             params['page'] = page
-            
+        if has_breeds is not None:
+            params['has_breeds'] = has_breeds
+        if breed_ids is not None:
+            params['breed_ids'] = breed_ids      
+        if parameter_value is not None:
+            params[parameter_value[0]] = parameter_value[1]      
 
         response = super().make_get_request(url, params)
 
