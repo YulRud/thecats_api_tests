@@ -73,3 +73,4 @@
 [2025-02-11 03:07:19,182] - [INFO] - client.cat_images_client (line: 33) -  Received response with status code: 400 and body: Couldn't find an image matching the passed 'id' of BkIEhN3pG
 [2025-02-11 03:07:19,296] - [INFO] - fixture.authorization_fixture (line: 16) -  Logging of test execution has ended
 [2025-02-11 03:15:03,866] - [INFO] - client.cat_favorites_client (line: 29) -  Logger initialized
+[2025-02-11 03:15:45,348] - [INFO] - client.cat_favorites_client (line: 29) -  Logger initialized
