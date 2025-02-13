@@ -24,9 +24,10 @@ class BaseClient:
         return response
 
     def make_get_by_id_request(self, url, id, parameters=None):
+        url = url + f'/{id}'
         BaseClient.logger.info(f"Making GET request to: {url} with params: {parameters}")
 
-        response = requests.get(url + f'/{id}',
+        response = requests.get(url,
             headers=self.headers, 
             params=parameters)           
         
@@ -45,9 +46,10 @@ class BaseClient:
         return response
 
     def make_delete_request(self, url, id, parameters=None):
+        url = url + f'/{id}'
         BaseClient.logger.info(f"Making DELETE request to: {url} with params: {parameters}")
 
-        response = requests.delete(url + f'/{id}',
+        response = requests.delete(url,
             headers=self.headers, 
             params=parameters)           
         
