@@ -134,27 +134,4 @@ def verify_image_required_fields(image):
     assert_that(image).is_not_none() 
     assert_that(image['id']).is_not_none() 
     assert_that(image['url']).is_not_none() 
-
-
-#Validation tests
-@pytest.mark.parametrize('api_key', invalid_api_keys)
-def test_retrieve_images_with_invalid_api_key(api_key, logger):    
-    logger.info("test_retrieve_images_with_invalid_api_key favorites has started:")
-    response = client.get_images(api_key)    
-    assert_that(response.status_code).is_equal_to(HTTPStatus.UNAUTHORIZED) 
-    assert_that(response.text).is_equal_to(AUTHORIZATION_ERROR_MESSAGE) 
-
-@pytest.mark.parametrize('api_key', invalid_api_keys)
-def test_retrieve_image_by_id_with_invalid_api_key(api_key, logger):    
-    logger.info("test_retrieve_images_with_invalid_api_key favorites has started:")
-    response = client.get_image_by_id(api_key, id = TEST_IMAGE_ID)    
-    assert_that(response.status_code).is_equal_to(HTTPStatus.UNAUTHORIZED) 
-    assert_that(response.text).is_equal_to(AUTHORIZATION_ERROR_MESSAGE) 
-
-def test_retrieve_image_by_id_with_invalid_id(api_key, logger):    
-    logger.info("test_retrieve_image_by_id_with_invalid_id favorites has started:")
-
-    response = client.get_image_by_id(api_key, id = INVALID_ID)    
-    assert_that(response.status_code).is_equal_to(HTTPStatus.BAD_REQUEST) 
-    assert_that(response.text).is_equal_to(NO_VALID_ID_ERROR_MESSAGE.format(INVALID_ID)) 
     

@@ -54,27 +54,3 @@ def verify_required_fields_are_present(favorite):
     assert_that(favorite['image_id']).is_not_none() 
     assert_that(favorite['sub_id']).is_not_none() 
     assert_that(favorite['created_at']).is_not_none()
-
-#Validation tests
-
-@pytest.mark.parametrize('api_key', invalid_api_keys)
-def test_retrieve_favorites_invalid_api_key(api_key, logger):    
-    logger.info("test_retrieve_favorites_invalid_api_key favorites has started:")
-    response = client.get_favorites(api_key)    
-    assert_that(response.status_code).is_equal_to(HTTPStatus.UNAUTHORIZED) 
-    assert_that(response.text).is_equal_to(AUTHORIZATION_ERROR_MESSAGE) 
-
-@pytest.mark.parametrize('api_key', invalid_api_keys)
-def test_retrieve_favorites_by_id_invalid_api_key(api_key, logger):    
-    logger.info("test_retrieve_favorites_by_id_invalid_api_key favorites has started:")
-    response = client.get_favorites_by_id(api_key, id=INVALID_ID)    
-    assert_that(response.status_code).is_equal_to(HTTPStatus.UNAUTHORIZED) 
-    assert_that(response.text).is_equal_to(AUTHORIZATION_ERROR_MESSAGE) 
-
-def test_retrieve_favorites_by_id_with_invalid_id(api_key, logger):    
-    logger.info("test_retrieve_favorites_by_id_with_invalid_id favorites has started:")
-
-    response = client.get_favorites_by_id(api_key, id = INVALID_ID)    
-    assert_that(response.status_code).is_equal_to(HTTPStatus.NOT_FOUND) 
-    assert_that(response.text).is_equal_to('NOT_FOUND') 
-

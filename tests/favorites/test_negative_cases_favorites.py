@@ -18,6 +18,30 @@ client = CatFavoritesClient()
 MAX_IMAGE_ID_LENGTH = 11
 MAX_SUB_ID_LENGTH = 255
 
+#Retrieve endpoints
+
+@pytest.mark.parametrize('api_key', invalid_api_keys)
+def test_retrieve_favorites_invalid_api_key(api_key, logger):    
+    logger.info("test_retrieve_favorites_invalid_api_key favorites has started:")
+    response = client.get_favorites(api_key)    
+    assert_that(response.status_code).is_equal_to(HTTPStatus.UNAUTHORIZED) 
+    assert_that(response.text).is_equal_to(AUTHORIZATION_ERROR_MESSAGE) 
+
+@pytest.mark.parametrize('api_key', invalid_api_keys)
+def test_retrieve_favorites_by_id_invalid_api_key(api_key, logger):    
+    logger.info("test_retrieve_favorites_by_id_invalid_api_key favorites has started:")
+    response = client.get_favorites_by_id(api_key, id=INVALID_ID)    
+    assert_that(response.status_code).is_equal_to(HTTPStatus.UNAUTHORIZED) 
+    assert_that(response.text).is_equal_to(AUTHORIZATION_ERROR_MESSAGE) 
+
+def test_retrieve_favorites_by_id_with_invalid_id(api_key, logger):    
+    logger.info("test_retrieve_favorites_by_id_with_invalid_id favorites has started:")
+
+    response = client.get_favorites_by_id(api_key, id = INVALID_ID)    
+    assert_that(response.status_code).is_equal_to(HTTPStatus.NOT_FOUND) 
+    assert_that(response.text).is_equal_to('NOT_FOUND') 
+
+#Create endpoints
 
 @pytest.mark.parametrize('api_key', invalid_api_keys)
 def test_create_favorite_with_invalid_api_key(api_key, logger):    
@@ -25,19 +49,6 @@ def test_create_favorite_with_invalid_api_key(api_key, logger):
     response = client.create_favorite(api_key, get_random_favorite_body())   
     assert_that(response.status_code).is_equal_to(HTTPStatus.UNAUTHORIZED) 
     assert_that(response.text).is_equal_to(AUTHORIZATION_ERROR_MESSAGE) 
-
-@pytest.mark.parametrize('api_key', invalid_api_keys)
-def test_delete_favorite_with_invalid_api_key(api_key, logger):    
-    logger.info("test_delete_favorite_with_invalid_api_key favorites has started:")
-    response = client.delete_favorite(api_key, INVALID_ID)   
-    assert_that(response.status_code).is_equal_to(HTTPStatus.UNAUTHORIZED) 
-    assert_that(response.text).is_equal_to(AUTHORIZATION_ERROR_MESSAGE) 
-
-def test_delete_favorite_with_invalid_id(api_key,logger):    
-    logger.info("test_delete_favorite_with_invalid_id favorites has started:")
-    response = client.delete_favorite(api_key, INVALID_ID)   
-    assert_that(response.status_code).is_equal_to(HTTPStatus.BAD_REQUEST) 
-    assert_that(response.text).is_equal_to('INVALID_ACCOUNT') 
 
 def test_create_favorite_with_empty_image_id(api_key, logger):
     logger.info("test_create_favorite_with_empty_image_id has started:")
@@ -109,3 +120,18 @@ def test_create_favorite_with_duplicated_favorites(api_key, logger, create_favor
     assert_that(response.status_code).is_equal_to(HTTPStatus.BAD_REQUEST)
     assert_that(response.text).is_equal_to('DUPLICATE_FAVOURITE - favourites are unique for account + image_id + sub_id')
 
+#Delete endpoints
+
+@pytest.mark.parametrize('api_key', invalid_api_keys)
+def test_delete_favorite_with_invalid_api_key(api_key, logger):    
+    logger.info("test_delete_favorite_with_invalid_api_key favorites has started:")
+    response = client.delete_favorite(api_key, INVALID_ID)   
+    assert_that(response.status_code).is_equal_to(HTTPStatus.UNAUTHORIZED) 
+    assert_that(response.text).is_equal_to(AUTHORIZATION_ERROR_MESSAGE) 
+
+def test_delete_favorite_with_invalid_id(api_key,logger):    
+    logger.info("test_delete_favorite_with_invalid_id favorites has started:")
+    response = client.delete_favorite(api_key, INVALID_ID)   
+    assert_that(response.status_code).is_equal_to(HTTPStatus.BAD_REQUEST) 
+    assert_that(response.text).is_equal_to('INVALID_ACCOUNT') 
+    
