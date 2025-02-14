@@ -1,5 +1,3 @@
-import requests
-import json
 from client.base_client import BaseClient
 from config import BASE_URI
 
@@ -24,9 +22,9 @@ class CatImagesClient(BaseClient):
         if parameter_value is not None:
             params[parameter_value[0]] = parameter_value[1]      
 
-        response = super().make_get_request(self.base_url + '/search', api_key, params)
+        response = super().get(self.base_url + '/search', api_key, params)
 
         return response
 
     def get_image_by_id(self, api_key, id = None):           
-        return super().make_get_by_id_request(self.base_url, api_key, id)
+        return super().get_by_id(self.base_url, api_key, id)

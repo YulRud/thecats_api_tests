@@ -6,7 +6,7 @@ import json
 from client.cat_favorites_client import CatFavoritesClient
 from assertpy import assert_that, soft_assertions
 from fixture.authorization_fixture import api_key, test_logger as logger
-from util.factory.favorite_factory import get_favorite_body, get_random_favorite_body
+from factory.favorite_factory import get_favorite_body, get_random_favorite_body
 from util.string_utils import generate_random_string
 from config import USER_ID
 import time

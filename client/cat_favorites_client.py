@@ -7,13 +7,13 @@ class CatFavoritesClient(BaseClient):
         self.base_url = BASE_URI + '/v1/favourites'
   
     def get_favorites(self, api_key):
-        return super().make_get_request(self.base_url, api_key)
+        return super().get(self.base_url, api_key)
 
     def get_favorites_by_id(self, api_key, id = None):        
-        return super().make_get_by_id_request(self.base_url, api_key, id)
+        return super().get_by_id(self.base_url, api_key, id)
   
     def create_favorite(self, api_key, body = None):
-        return super().make_post_request(self.base_url, api_key, body)
+        return super().post(self.base_url, api_key, body)
 
     def delete_favorite(self, api_key, id = None): 
-        return super().make_delete_request(self.base_url, api_key, id)
+        return super().delete(self.base_url, api_key, id)

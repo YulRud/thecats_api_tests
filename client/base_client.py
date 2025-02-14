@@ -13,7 +13,7 @@ class BaseClient:
         if not BaseClient.logger:
             BaseClient.logger = Logger(name=name).get_logger()
 
-    def make_get_request(self, url, api_key, parameters=None):
+    def get(self, url, api_key, parameters=None):
         if parameters is None:
             parameters = {}
         parameters['api_key'] = api_key
@@ -26,7 +26,7 @@ class BaseClient:
         BaseClient.logger.info(f"Received response with status code: {response.status_code} and body: {response.text}")
         return response
 
-    def make_get_by_id_request(self, url, api_key, id):     
+    def get_by_id(self, url, api_key, id):     
         parameters = {'api_key': api_key}
         url = url + f'/{id}'
         BaseClient.logger.info(f"Making GET request to: {url} with params: {parameters}")
@@ -38,7 +38,7 @@ class BaseClient:
         BaseClient.logger.info(f"Received response with status code: {response.status_code}, params: {parameters} and body: {response.text}")
         return response
 
-    def make_post_request(self, url, api_key, body=None): 
+    def post(self, url, api_key, body=None): 
         parameters = {'api_key': api_key}  
         BaseClient.logger.info(f"Making POST request to: {url} with body: {body}")
 
@@ -50,7 +50,7 @@ class BaseClient:
         BaseClient.logger.info(f"Received response with status code: {response.status_code} and body: {response.text}")
         return response
 
-    def make_delete_request(self, url, api_key, id, parameters=None):       
+    def delete(self, url, api_key, id, parameters=None):       
         if parameters is None:
             parameters = {}
         parameters['api_key'] = api_key
