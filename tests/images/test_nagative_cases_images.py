@@ -10,8 +10,7 @@ from util.constants import AUTHORIZATION_ERROR_MESSAGE, NO_VALID_ID_ERROR_MESSAG
 
 client = CatImagesClient()
 
-#TODO: for some reason started to work without the api key
-@pytest.mark.skip() 
+@pytest.mark.skip(reason="for some reason started to work without the api key") 
 @pytest.mark.parametrize('api_key', invalid_api_keys)
 def test_retrieve_images_with_invalid_api_key(api_key, logger):    
     logger.info("test_retrieve_images_with_invalid_api_key favorites has started:")
@@ -19,8 +18,7 @@ def test_retrieve_images_with_invalid_api_key(api_key, logger):
     assert_that(response.status_code).is_equal_to(HTTPStatus.UNAUTHORIZED) 
     assert_that(response.text).is_equal_to(AUTHORIZATION_ERROR_MESSAGE) 
 
-#TODO: for some reason started to work without the api key
-@pytest.mark.skip() 
+@pytest.mark.skip(reason="for some reason started to work without the api key")  
 @pytest.mark.parametrize('api_key', invalid_api_keys)
 def test_retrieve_image_by_id_with_invalid_api_key(api_key, logger):    
     logger.info("test_retrieve_images_with_invalid_api_key favorites has started:")
