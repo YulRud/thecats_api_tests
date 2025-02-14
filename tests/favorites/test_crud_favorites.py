@@ -29,6 +29,7 @@ def cleanup_favorite(api_key, logger, favorite_test_data):
         logger.info(f"Cleaning up favorite with id: {favorite_test_data['id_created']}")
         response = client.delete_favorite(api_key, id=favorite_test_data["id_created"])
 
+@pytest.mark.dependency(name="test_create_favorite")
 def test_create_favorite(api_key, logger, favorite_test_data):    
     logger.info("test_create_favorite favorites has started:")
 
@@ -44,7 +45,7 @@ def test_create_favorite(api_key, logger, favorite_test_data):
 
     favorite_test_data["id_created"] = favorites_created["id"]
 
-@pytest.mark.depends(on=["test_create_favorite"])
+@pytest.mark.dependency(name="test_get_created_favorite", depends=["test_create_favorite"])
 def test_get_created_favorite(api_key, logger, favorite_test_data):    
     logger.info("test_get_created_favorite favorites has started:")
 
@@ -65,7 +66,7 @@ def test_get_created_favorite(api_key, logger, favorite_test_data):
 
         assert_that(favorite_created_at).is_equal_to_ignoring_seconds(current_time)
 
-@pytest.mark.depends(on=["test_create_favorite", "test_get_created_favorite"])
+@pytest.mark.dependency(name = "test_delete_created_favorite", depends=["test_create_favorite", "test_get_created_favorite"])
 def test_delete_created_favorite(api_key, logger, favorite_test_data):  
     #we need to make the tests sleep to avoid to much requests situation
     time.sleep(1)
