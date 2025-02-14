@@ -12,14 +12,14 @@ from cerberus import Validator
 
 client = CatFavoritesClient()
 
-def validate_schema(object_to_validate, validation_schema):
+def validate_schema(object_to_validate, validation_schema, logger):
     validator = Validator(validation_schema, require_all=True)
     is_valid = validator.validate(object_to_validate)
 
     if not is_valid:
-        print("Validation failed for object:", object_to_validate)
-        print("Validation schema:", validation_schema)
-        print("Validation errors:", validator.errors)
+        logger("Validation failed for object:", object_to_validate)
+        logger("Validation schema:", validation_schema)
+        logger("Validation errors:", validator.errors)
 
     assert_that(is_valid, description=validator.errors).is_true()
 
@@ -60,7 +60,7 @@ def test_retrieve_favorites(api_key, logger, favorite_validation_schema):
     assert_that(len(favorites_list)).is_greater_than(0)
     for favorite in favorites_list:
         verify_required_fields_are_present(favorite)
-        validate_schema(favorite, favorite_validation_schema)
+        validate_schema(favorite, favorite_validation_schema, logger)
 
 def test_retrieve_favorites_by_id(api_key, logger, create_favorite, favorite_validation_schema):    
     logger.info("test_retrieve_favorites_by_id favorites has started:")
@@ -75,7 +75,7 @@ def test_retrieve_favorites_by_id(api_key, logger, create_favorite, favorite_val
     assert_that(favorite['user_id']).is_equal_to(favorite['user_id']) 
     assert_that(favorite['image_id']).is_equal_to(favorite['image_id']) 
     assert_that(favorite['sub_id']).is_equal_to(favorite['sub_id']) 
-    validate_schema(favorite, favorite_validation_schema)
+    validate_schema(favorite, favorite_validation_schema, logger)
 
 def verify_required_fields_are_present(favorite):
     assert_that(favorite['id']).is_not_none() 
