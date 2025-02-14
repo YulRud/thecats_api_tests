@@ -10,6 +10,7 @@ pytest-depends = "*"
 assertpy = "*"
 jsonpath-ng = "*"
 cerberus = "*"
+pytest-html = "*"
 
 [dev-packages]
 
