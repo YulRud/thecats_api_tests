@@ -1,5 +1,6 @@
 from http import HTTPStatus
 import json
+from assertion.contract_testing_validation import validate_schema
 from client.cat_favorites_client import CatFavoritesClient
 import pytest
 from assertpy import assert_that
@@ -8,20 +9,8 @@ from fixture.authorization_fixture import test_logger as logger
 from util.factory.favorite_factory import get_random_favorite_body
 from util.parameters_for_tests import invalid_api_keys
 from util.constants import AUTHORIZATION_ERROR_MESSAGE, INVALID_ID
-from cerberus import Validator
 
 client = CatFavoritesClient()
-
-def validate_schema(object_to_validate, validation_schema, logger):
-    validator = Validator(validation_schema, require_all=True)
-    is_valid = validator.validate(object_to_validate)
-
-    if not is_valid:
-        logger("Validation failed for object:", object_to_validate)
-        logger("Validation schema:", validation_schema)
-        logger("Validation errors:", validator.errors)
-
-    assert_that(is_valid, description=validator.errors).is_true()
 
 @pytest.fixture
 def favorite_validation_schema():
