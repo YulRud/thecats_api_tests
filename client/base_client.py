@@ -13,7 +13,10 @@ class BaseClient:
         if not BaseClient.logger:
             BaseClient.logger = Logger(name=name).get_logger()
 
-    def make_get_request(self, url, parameters=None):
+    def make_get_request(self, url, api_key, parameters=None):
+        if parameters is None:
+            parameters = {}
+        parameters['api_key'] = api_key
         BaseClient.logger.info(f"Making GET request to: {url} with params: {parameters}")
 
         response = requests.get(url,
@@ -23,7 +26,8 @@ class BaseClient:
         BaseClient.logger.info(f"Received response with status code: {response.status_code} and body: {response.text}")
         return response
 
-    def make_get_by_id_request(self, url, id, parameters=None):
+    def make_get_by_id_request(self, url, api_key, id):     
+        parameters = {'api_key': api_key}
         url = url + f'/{id}'
         BaseClient.logger.info(f"Making GET request to: {url} with params: {parameters}")
 
@@ -34,7 +38,8 @@ class BaseClient:
         BaseClient.logger.info(f"Received response with status code: {response.status_code}, params: {parameters} and body: {response.text}")
         return response
 
-    def make_post_request(self, url, parameters = None, body=None):
+    def make_post_request(self, url, api_key, body=None): 
+        parameters = {'api_key': api_key}  
         BaseClient.logger.info(f"Making POST request to: {url} with body: {body}")
 
         response = requests.post(url,
@@ -45,8 +50,11 @@ class BaseClient:
         BaseClient.logger.info(f"Received response with status code: {response.status_code} and body: {response.text}")
         return response
 
-    def make_delete_request(self, url, id, parameters=None):
-        url = url + f'/{id}'
+    def make_delete_request(self, url, api_key, id, parameters=None):       
+        if parameters is None:
+            parameters = {}
+        parameters['api_key'] = api_key
+        url = url + f'/{id}'    
         BaseClient.logger.info(f"Making DELETE request to: {url} with params: {parameters}")
 
         response = requests.delete(url,
@@ -55,3 +63,4 @@ class BaseClient:
         
         BaseClient.logger.info(f"Received response with status code: {response.status_code} and body: {response.text}")
         return response
+    

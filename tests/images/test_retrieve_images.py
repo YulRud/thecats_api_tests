@@ -126,7 +126,7 @@ def test_retrieve_image_by_id(api_key, logger):
         assert_that(image_retrieved['breeds']).is_not_empty() 
     
     # verify the image is accessible
-    image_picture_response = client.make_get_request(image_url)
+    image_picture_response = client.make_get_request(image_url, api_key)
     assert_that(image_picture_response.status_code).is_equal_to(HTTPStatus.OK)  
     assert_that(image_picture_response.headers.get('Content-Type')).is_equal_to('image/jpeg')
 

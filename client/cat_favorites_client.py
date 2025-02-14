@@ -1,41 +1,19 @@
-import requests
-import json
 from client.base_client import BaseClient
 from config import BASE_URI
 
 class CatFavoritesClient(BaseClient):
     def __init__(self):
         super().__init__(__name__)
-        self.base_url = BASE_URI
+        self.base_url = BASE_URI + '/v1/favourites'
   
     def get_favorites(self, api_key):
-        url = f'{self.base_url}/v1/favourites'
-        params ={'api_key':api_key}
+        return super().make_get_request(self.base_url, api_key)
 
-        response = super().make_get_request(url, params)
-
-        return response
-
-    def get_favorites_by_id(self, api_key, id = None):
-        url = f'{self.base_url}/v1/favourites'        
-        params ={'api_key':api_key}            
-
-        response = super().make_get_by_id_request(url, id, params)
-
-        return response
+    def get_favorites_by_id(self, api_key, id = None):        
+        return super().make_get_by_id_request(self.base_url, api_key, id)
   
     def create_favorite(self, api_key, body = None):
-        url = f'{self.base_url}/v1/favourites'
-        params ={'api_key':api_key}
+        return super().make_post_request(self.base_url, api_key, body)
 
-        response = super().make_post_request(url, params, body)
-
-        return response
-
-    def delete_favorite(self, api_key, id = None):
-        url = f'{self.base_url}/v1/favourites'        
-        params ={'api_key':api_key}            
-
-        response = super().make_delete_request(url, id, params)
-
-        return response
+    def delete_favorite(self, api_key, id = None): 
+        return super().make_delete_request(self.base_url, api_key, id)
