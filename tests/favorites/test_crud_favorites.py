@@ -5,7 +5,7 @@ from http import HTTPStatus
 import json
 from client.cat_favorites_client import CatFavoritesClient
 from assertpy import assert_that, soft_assertions
-from fixture.authorization_fixture import api_key, test_logger as logger
+from fixture.common_fixture import api_key, test_logger as logger
 from factory.favorite_factory import get_favorite_body, get_random_favorite_body
 from config import USER_ID
 import time

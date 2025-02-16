@@ -4,8 +4,7 @@ from assertion.contract_testing_validation import validate_schema
 from client.cat_favorites_client import CatFavoritesClient
 import pytest
 from assertpy import assert_that
-from fixture.authorization_fixture import api_key
-from fixture.authorization_fixture import test_logger as logger
+from fixture.common_fixture import api_key, test_logger as logger
 from factory.favorite_factory import get_random_favorite_body
 from util.parameters_for_tests import invalid_api_keys
 from util.constants import AUTHORIZATION_ERROR_MESSAGE, INVALID_ID

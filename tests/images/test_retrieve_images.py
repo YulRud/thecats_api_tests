@@ -3,8 +3,7 @@ import json
 from client.cat_images_client import CatImagesClient
 import pytest
 from assertpy import assert_that, soft_assertions
-from fixture.authorization_fixture import api_key
-from fixture.authorization_fixture import test_logger as logger
+from fixture.common_fixture import api_key, test_logger as logger
 from util.parameters_for_tests import invalid_api_keys
 from util.constants import AUTHORIZATION_ERROR_MESSAGE, NO_VALID_ID_ERROR_MESSAGE, INVALID_ID
 
